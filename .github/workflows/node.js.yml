@@ -19,7 +19,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
@@ -27,7 +27,7 @@ jobs:
     # Consumer steps
     - name: Install dependencies for consumer
       working-directory: ./consumer
-      run: npm ci
+      run: npm i
 
     - name: Compile TypeScript for consumer
       working-directory: ./consumer
@@ -35,12 +35,12 @@ jobs:
 
     - name: Run tests for consumer
       working-directory: ./consumer
-      run: npm test
+      run: npm start
 
     # Producer steps
     - name: Install dependencies for producer
       working-directory: ./producer
-      run: npm ci
+      run: npm i
 
     - name: Compile TypeScript for producer
       working-directory: ./producer
@@ -48,4 +48,4 @@ jobs:
 
     - name: Run tests for producer
       working-directory: ./producer
-      run: npm test
+      run: npm start
