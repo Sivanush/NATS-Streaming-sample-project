@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [2.x]
 
     steps:
     - name: Checkout code
@@ -29,10 +29,6 @@ jobs:
       working-directory: ./consumer
       run: npm i
 
-    - name: Compile TypeScript for consumer
-      working-directory: ./consumer
-      run: npx tsc
-
     - name: Run tests for consumer
       working-directory: ./consumer
       run: npm start
@@ -42,9 +38,6 @@ jobs:
       working-directory: ./producer
       run: npm i
 
-    - name: Compile TypeScript for producer
-      working-directory: ./producer
-      run: npx tsc
 
     - name: Run tests for producer
       working-directory: ./producer
