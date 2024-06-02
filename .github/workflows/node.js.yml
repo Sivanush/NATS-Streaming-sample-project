@@ -27,7 +27,12 @@ jobs:
     # Consumer steps
     - name: Install dependencies for consumer
       working-directory: ./consumer
-      run: npm ci
+      run: |
+        if [ -f package-lock.json ]; then
+          npm ci
+        else
+          npm install
+        fi
 
     - name: Run tests for consumer
       working-directory: ./consumer
@@ -36,7 +41,12 @@ jobs:
     # Producer steps
     - name: Install dependencies for producer
       working-directory: ./producer
-      run: npm ci
+      run: |
+        if [ -f package-lock.json ]; then
+          npm ci
+        else
+          npm install
+        fi
 
     - name: Run tests for producer
       working-directory: ./producer
