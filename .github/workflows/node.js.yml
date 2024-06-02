@@ -1,0 +1,51 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    # Consumer steps
+    - name: Install dependencies for consumer
+      working-directory: ./consumer
+      run: npm ci
+
+    - name: Compile TypeScript for consumer
+      working-directory: ./consumer
+      run: npx tsc
+
+    - name: Run tests for consumer
+      working-directory: ./consumer
+      run: npm test
+
+    # Producer steps
+    - name: Install dependencies for producer
+      working-directory: ./producer
+      run: npm ci
+
+    - name: Compile TypeScript for producer
+      working-directory: ./producer
+      run: npx tsc
+
+    - name: Run tests for producer
+      working-directory: ./producer
+      run: npm test
