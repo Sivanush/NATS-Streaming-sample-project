@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x,14.x,16.x]
+        node-version: [12.x, 14.x, 16.x]
 
     steps:
     - name: Checkout code
@@ -31,14 +31,13 @@ jobs:
 
     - name: Run tests for consumer
       working-directory: ./consumer
-      run: npm start
+      run: npm test
 
     # Producer steps
     - name: Install dependencies for producer
       working-directory: ./producer
       run: npm ci
 
-
     - name: Run tests for producer
       working-directory: ./producer
-      run: npm start
+      run: npm test
